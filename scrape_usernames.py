@@ -51,7 +51,7 @@ print("Signing in users...")
 # # sessions_files = [f for f in listdir(path) if isfile(join(path, f))]
 # sessions_files = ["default"]
 get_session = "SELECT session FROM promoters"
-insert_query = "INSERT INTO scraped_users (id, username) VALUE (%s,%s) "
+insert_query = "INSERT INTO scraped_users (id, username,msg_sent) VALUE (%s,%s,%s) "
 
 mycursor.execute(get_session)
 sessions_files = mycursor.fetchall()
@@ -123,8 +123,8 @@ async def main():
                     print("Actice User Found ...")
                     val = (user.id, user.username,1)
                     print("Sending Msg Too ... :  ",val[1])
-
-                    sel = random.randint(0,(len(clients)+1))
+                    print(len(clients))
+                    sel = random.randint(0,(len(clients)-1))
                     client = clients[sel]
                     await client.send_message(user ,"hi mate :)")
 
